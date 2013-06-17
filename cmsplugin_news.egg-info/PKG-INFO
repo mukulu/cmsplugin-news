@@ -1,13 +1,13 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: cmsplugin-news
-Version: 0.3b
+Version: 0.4
 Summary: This is a news app/plugin for the django-cms 2
 Home-page: http://bitbucket.org/MrOxiMoron/cmsplugin-news/
-Author: Harro van der Klauw
-Author-email: hvdklauw@gmail.com
-License: UNKNOWN
-Description: UNKNOWN
-Platform: UNKNOWN
+Author: John Francis Mukulu
+Author-email: john.f.mukulu@gmail.com
+License: GNU GPL
+Description: Django-CMS News plugin
+Platform: Independent
 Classifier: Development Status :: 4 - Beta
 Classifier: Environment :: Web Environment
 Classifier: Intended Audience :: Developers

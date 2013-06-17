@@ -1,48 +1,51 @@
-from tinymce.widgets import TinyMCE, get_language_config
 from django.conf import settings
 from django.utils.translation import get_language
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from os.path import join
 from django.utils.encoding import smart_unicode
-import tinymce.settings
 from django.utils import simplejson
 from django.template.defaultfilters import escape
 from django.forms.widgets import flatatt
+
+from tinymce.widgets import TinyMCE, get_language_config
+import tinymce.settings
+
 import cms.plugins.text.settings
+from cms.utils import cms_static_url
+
 
 class TinyMCEEditor(TinyMCE):
-    
-    def __init__(self, installed_plugins=None,  **kwargs):
+
+    def __init__(self, installed_plugins=None, **kwargs):
         super(TinyMCEEditor, self).__init__(**kwargs)
         self.installed_plugins = installed_plugins
-        
+
     def render_additions(self, name, value, attrs=None):
         language = get_language()
         context = {
             'name': name,
             'language': language,
-            'CMS_MEDIA_URL': settings.CMS_MEDIA_URL,
+            'CMS_MEDIA_URL': settings.STATIC_URL,
             'installed_plugins': self.installed_plugins,
         }
         return mark_safe(render_to_string(
-            'cmsplugin_news/widgets/tinymce.html', context))
-        
+            'news/widgets/tinymce.html', context))
+
     def _media(self):
         media = super(TinyMCEEditor, self)._media()
-        media.add_js([join(settings.CMS_MEDIA_URL, path) for path in (
-                      'js/lib/jquery.js',
-                      )])
-        media.add_css({"all":[join(settings.CMS_MEDIA_URL, path) for path in ('css/jquery/cupertino/jquery-ui.css',
-                                                                     'css/tinymce_toolbar.css')]})
-        
+        media.add_js([cms_static_url(path) for path in (
+                'js/plugins/admincompat.js',
+                )])
+        media.add_css({"all": [cms_static_url(path) for path in (
+                'css/jquery/cupertino/jquery-ui.css',
+                'css/tinymce_toolbar.css')]})
         return media
-    
-    
+
     media = property(_media)
-    
+
     def render(self, name, value, attrs=None):
-        if value is None: value = ''
+        if value is None:
+            value = ''
         value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs)
         final_attrs['name'] = name
@@ -68,8 +71,9 @@ class TinyMCEEditor(TinyMCE):
         mce_config['theme_advanced_buttons1'] = adv2
         """
         json = simplejson.dumps(mce_config)
-        
-        html = [u'<textarea%s>%s</textarea>' % (flatatt(final_attrs), escape(value))]
+
+        html = [u'<textarea%s>%s</textarea>' % (flatatt(final_attrs),
+                escape(value))]
         if tinymce.settings.USE_COMPRESSOR:
             compressor_config = {
                 'plugins': mce_config.get('plugins', ''),
@@ -82,6 +86,3 @@ class TinyMCEEditor(TinyMCE):
             html.append(u'<script type="text/javascript">tinyMCE_GZ.init(%s);</script>' % (c_json))
         html.append(u'<script type="text/javascript">%s;\ntinyMCE.init(%s);</script>' % (self.render_additions(name, value, attrs), json))
         return mark_safe(u'\n'.join(html))
-    
-    
-    

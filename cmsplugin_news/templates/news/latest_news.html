@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/newsticker.css' %}" type="text/css" />
+<div class="cmsplugin-news">
+<h1 class="downcast">{% trans "Siste aktuelt" %}</h1>
+<div id="news-box">
+	 <div id="newsticker">
+		 <div id="news-container" style="overflow: hidden; position: relative; height: 126px;">
+			 <ul>
+			  {% for news in latest %}
+				<li>
+					<div>
+						<p>
+							<span style="float: left; display: inline-block;">
+								<span class="plugin_picture align-left">
+									<a href="{{ news.page_link.get_absolute_url }}">
+										<img src="{{ news.news_picture.url }}" alt="{{ news.title}} " title="{{ news.title }}">
+									</a>
+								</span>
+								<span style="clear: both; text-align: center; display: block;">
+									<h3><a style="color:#000000" href="{{ news.page_link.get_absolute_url }}">&nbsp;&nbsp;{{ news.title }}</a></h3>
+									{{ news.content }}  <a href="{{ news.page_link.get_absolute_url }}"> Les mer...</a>
+								</span>
+							</span>
+						</p>
+					</div>
+				</li>
+			  {% empty %}
+				<li><div><h3>&nbsp;&nbsp;{% trans "No news yet" %}</h3></div></li>
+			  {% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

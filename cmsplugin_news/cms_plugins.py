@@ -6,15 +6,15 @@ from cms.plugin_pool import plugin_pool
 from cmsplugin_news.models import LatestNewsPlugin, News
 from cmsplugin_news import settings
 
+
 class CMSLatestNewsPlugin(CMSPluginBase):
     """
         Plugin class for the latest news
     """
     model = LatestNewsPlugin
     name = _('Latest news')
-    render_template = "cmsplugin_news/latest_news.html"
-    
-    
+    render_template = "news/latest_news.html"
+
     def render(self, context, instance, placeholder):
         """
             Render the latest news
