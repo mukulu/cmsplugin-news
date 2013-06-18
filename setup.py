@@ -4,9 +4,9 @@ setup(
     name='cmsplugin-news',
     version='0.3b',
     description='This is a news app/plugin for the django-cms 2',
-    author='Harro van der Klauw',
-    author_email='hvdklauw@gmail.com',
-    url='http://bitbucket.org/MrOxiMoron/cmsplugin-news/',
+    author='Harro van der Klauw;John Francis Mukulu',
+    author_email='hvdklauw@gmail.com; john.f.mukulu@gmail.com',
+    url='http://github.com/mukulu/cmsplugin-news/',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 4 - Beta',
