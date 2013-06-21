@@ -12,14 +12,31 @@
 					<div>
 						<p>
 							<span style="float: left; display: inline-block;">
-								<span class="plugin_picture align-left">
-									<a href="{{ news.page_link.get_absolute_url }}">
-										<img src="{{ news.news_picture.url }}" alt="{{ news.title}} " title="{{ news.title }}">
-									</a>
-								</span>
+								{% if news.news_picture.url %}
+									{%if news.page_link.get_absolute_url %}
+										<span class="plugin_picture align-left">
+											<a href="{{ news.page_link.get_absolute_url }}">
+												<img src="{{ news.news_picture.url }}" alt="{{ news.title}} " title="{{ news.title }}">
+											</a>
+										</span>
+									{% else %}
+										<span class="plugin_picture align-left">
+											<img src="{{ news.news_picture.url }}" alt="{{ news.title}} " title="{{ news.title }}">
+										</span>
+									{% endif %}
+								{% endif %}
 								<span style="clear: both; text-align: center; display: block;">
-									<h3><a style="color:#000000" href="{{ news.page_link.get_absolute_url }}">&nbsp;&nbsp;{{ news.title }}</a></h3>
-									{{ news.content }}  <a href="{{ news.page_link.get_absolute_url }}"> Les mer...</a>
+									<h3>
+										{%if news.page_link.get_absolute_url %}
+											<a style="color:#000000" href="{{ news.page_link.get_absolute_url }}">&nbsp;&nbsp;{{ news.title }}</a>
+										{% else %}
+											&nbsp;&nbsp;{{ news.title }}
+										{% endif %}
+									</h3>
+									{{ news.content }}
+										{%if news.page_link.get_absolute_url %}
+											<a href="{{ news.page_link.get_absolute_url }}"> Les mer...</a>
+										{% endif %}
 								</span>
 							</span>
 						</p>
