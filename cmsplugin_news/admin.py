@@ -1,9 +1,10 @@
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
-from django.contrib import admin
-
 from cmsplugin_news.forms import NewsForm
 from cmsplugin_news.models import News
+from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _, ungettext
+from django.db import models
+from django import forms
+
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -16,12 +17,18 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ('is_published', )
     search_fields = ['title', 'excerpt', 'content']
     prepopulated_fields = {'slug': ('title',)}
-
+    
+  
     actions = ['make_published', 'make_unpublished']
 
     save_as = True
     save_on_top = True
-
+    
+    formfield_overrides = { models.TextField: {'widget': forms.Textarea(attrs={'class':'ckeditor'})}, }
+    class Media:
+        js = ('/media/ckeditor/ckeditor.js',) # The , at the end of this list IS important.
+  
+    
     def queryset(self, request):
         """
             Override to use the objects and not just the default visibles only.

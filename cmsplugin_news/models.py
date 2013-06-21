@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+import ckeditor.fields
 from cms.models import CMSPlugin, Page
 from cms.utils import get_cms_setting
 from .utils import calculate_image_path
@@ -33,7 +34,8 @@ class News(CMSPlugin):
                         help_text=_('A slug is a short name which uniquely identifies the news item for this day'))
     excerpt = models.TextField(_('Excerpt'), blank=True)
     content = models.TextField(_('Content'), blank=True)
-    news_picture = models.ImageField(_("image"), upload_to=calculate_image_path,max_length=255,null=True,blank=True)
+    #content = ckeditor.fields.RichTextField(_('Content'), blank=True)
+    news_picture = models.ImageField(_("image"), upload_to=calculate_image_path, max_length=255, null=True, blank=True)
 
     is_published = models.BooleanField(_('Published'), default=False)
     pub_date = models.DateTimeField(_('Publication date'), default=datetime.datetime.now)
@@ -44,7 +46,7 @@ class News(CMSPlugin):
     published = PublishedNewsManager()
     objects = models.Manager()
     
-    def get_cover_picture_url(self,instance,filename):
+    def get_cover_picture_url(self, instance, filename):
         extension = os.path.splitext(filename)[1]
         normazed_path = re.compile('[ ]').sub('-', re.compile('[/:.()<>|?*]|(\\\)').sub('', instance.isbn))
         normalized_filename = os.path.join(str(instance.id) + '-' + normazed_path + extension)
@@ -62,7 +64,7 @@ class News(CMSPlugin):
     class Meta:
         verbose_name = _('News')
         verbose_name_plural = _('News')
-        ordering = ('-pub_date', )
+        ordering = ('-pub_date',)
 
     def __unicode__(self):
         return self.title
@@ -87,3 +89,13 @@ class LatestNewsPlugin(CMSPlugin):
     """
     limit = models.PositiveIntegerField(_('Number of news items to show'),
                     help_text=_('Limits the number of items that will be displayed'))
+
+
+class ArchiveNewsPlugin(CMSPlugin):
+    """
+        Modle for the settings when using news archives cms plugin
+    """
+    limit = models.PositiveIntegerField(_('Number of news items to show'),
+                    help_text=_('Limits the number of items that will be displayed'))
+     
+     
