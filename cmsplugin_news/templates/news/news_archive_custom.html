@@ -1,9 +1,10 @@
 {% load i18n %}
 {% load pagination_tags %}
-
+<h2><span class="subheading-category">Nyheter</span></h2>
 {% autopaginate news pages %}
 {% for object in news %}
-    <div class="span4" style="{% cycle 'margin-left: 0;' 'margin-left: 50px;'%}">    
+    {{ incr}}
+    <div class="span4">    
         <h2>
             <span style="line-height: 5px; font-size: 22px;">{{ object.title }}</span>
         </h2> 
