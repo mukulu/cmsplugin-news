@@ -34,5 +34,6 @@ cmsplugin_news/templates/news/feeds/item_title.html
 cmsplugin_news/templates/news/widgets/tinymce.html
 cmsplugin_news/templates/news/widgets/wymeditor.html
 cmsplugin_news/widgets/__init__.py
+cmsplugin_news/templates/news/news_archive_custom.html
 cmsplugin_news/widgets/tinymce_widget.py
 cmsplugin_news/widgets/wymeditor_widget.py
