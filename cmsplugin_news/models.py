@@ -1,17 +1,17 @@
+from .utils import calculate_image_path
+from cms.models import CMSPlugin, Page
+from cms.utils import get_cms_setting
+from cmsplugin_news import settings
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+import ckeditor.fields
 import datetime
 import os
 import re
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
-import ckeditor.fields
-from cms.models import CMSPlugin, Page
-from cms.utils import get_cms_setting
-from .utils import calculate_image_path
 
-from cmsplugin_news import settings
 
 
 class PublishedNewsManager(models.Manager):
@@ -34,7 +34,7 @@ class News(CMSPlugin):
                         help_text=_('A slug is a short name which uniquely identifies the news item for this day'))
     excerpt = models.TextField(_('Excerpt'), blank=True)
     content = models.TextField(_('Content'), blank=True)
-    #content = ckeditor.fields.RichTextField(_('Content'), blank=True)
+    # content = ckeditor.fields.RichTextField(_('Content'), blank=True)
     news_picture = models.ImageField(_("image"), upload_to=calculate_image_path, max_length=255, null=True, blank=True)
 
     is_published = models.BooleanField(_('Published'), default=False)
@@ -93,9 +93,11 @@ class LatestNewsPlugin(CMSPlugin):
 
 class ArchiveNewsPlugin(CMSPlugin):
     """
-        Modle for the settings when using news archives cms plugin
+        Model for the settings when using news archives cms plugin
     """
     limit = models.PositiveIntegerField(_('Number of news items to show'),
-                    help_text=_('Limits the number of items that will be displayed'))
+                    help_text=_('Limits the number of items that will be displayed per page'), 
+                    null=True, blank=True,
+                    default=20)
      
      

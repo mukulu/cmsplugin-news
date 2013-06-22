@@ -32,20 +32,21 @@ if not settings.DISABLE_LATEST_NEWS_PLUGIN:
 
 class CMSArchiveNewsPlugin(CMSPluginBase):
     """
-        Plugin class for the all news
+        Plugin class for the news archive
     """
     model = ArchiveNewsPlugin
     name = _('News Archives')
-    render_template = "news/archive_news_custom.html"
+    render_template = "news/news_archive_custom.html"
 
     def render(self, context, instance, placeholder):
         """
             Render archive news
         """
-        news = News.published.all()[:instance.limit]
+        news = News.published.all()
         context.update({
             'instance': instance,
             'news': news,
+            'pages' : instance.limit if instance.limit > 0 else 1,
             'placeholder': placeholder,
         })
         return context

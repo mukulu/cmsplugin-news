@@ -20,13 +20,10 @@ cmsplugin_news.egg-info/dependency_links.txt
 cmsplugin_news.egg-info/not-zip-safe
 cmsplugin_news.egg-info/requires.txt
 cmsplugin_news.egg-info/top_level.txt
-cmsplugin_news/migrations/0001_initial.py
-cmsplugin_news/migrations/__init__.py
-cmsplugin_news/widgets/__init__.py
-cmsplugin_news/widgets/tinymce_widget.py
-cmsplugin_news/widgets/wymeditor_widget.py
 cmsplugin_news/locale/de/LC_MESSAGES/django.mo
 cmsplugin_news/locale/de/LC_MESSAGES/django.po
+cmsplugin_news/migrations/0001_initial.py
+cmsplugin_news/migrations/__init__.py
 cmsplugin_news/templates/news/latest_news.html
 cmsplugin_news/templates/news/news_archive.html
 cmsplugin_news/templates/news/news_archive_month.html
@@ -36,3 +33,6 @@ cmsplugin_news/templates/news/feeds/item_description.html
 cmsplugin_news/templates/news/feeds/item_title.html
 cmsplugin_news/templates/news/widgets/tinymce.html
 cmsplugin_news/templates/news/widgets/wymeditor.html
+cmsplugin_news/widgets/__init__.py
+cmsplugin_news/widgets/tinymce_widget.py
+cmsplugin_news/widgets/wymeditor_widget.py
