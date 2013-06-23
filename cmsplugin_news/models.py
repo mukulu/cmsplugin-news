@@ -60,6 +60,17 @@ class News(CMSPlugin):
         blank=True, help_text=_("If present, clicking on image will take user \
         to specified page."))
     
+    def get_news_picture_url(self):
+        try:
+            return self.news_picture.url
+        except ValueError:
+            return None
+    def get_page_link(self):
+        try:
+            return self.page_link.get_absolute_url()
+        except ValueError:
+            return None
+    
 
     class Meta:
         verbose_name = _('News')
@@ -70,13 +81,17 @@ class News(CMSPlugin):
         return self.title
 
     def get_absolute_url(self):
-        if settings.LINK_AS_ABSOLUTE_URL and self.page_link:
-            if settings.USE_LINK_ON_EMPTY_CONTENT_ONLY and not self.content:
-                return self.page_link
-        return reverse('news_detail', kwargs={'year': self.pub_date.strftime("%Y"),
+        try:
+            if settings.LINK_AS_ABSOLUTE_URL and self.page_link:
+                if settings.USE_LINK_ON_EMPTY_CONTENT_ONLY and not self.content:
+                    return self.page_link
+                return reverse('news_detail', kwargs={'year': self.pub_date.strftime("%Y"),
                                     'month': self.pub_date.strftime("%m"),
                                     'day': self.pub_date.strftime("%d"),
                                     'slug': self.slug})
+        except IOError:
+            return None
+        
     def clean(self):
         if self.url and self.page_link:
             raise ValidationError(
