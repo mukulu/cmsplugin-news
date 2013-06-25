@@ -8,40 +8,42 @@
 		 <div id="news-container" style="overflow: hidden; position: relative; height: 126px;">
 			 <ul>
 			  {% for news in latest %}
-				<li>
-					<div>
-						<p>
-							<span style="float: left; display: inline-block;">
-								{% if news.get_news_picture_url %}
-									{%if news.page_link.get_absolute_url %}
-										<span class="plugin_picture align-left">
-											<a href="{{ news.get_page_link }}">
-												<img src="{{ news.get_news_picture_url }}" alt="{{ news.title}} " title="{{ news.title }}">
-											</a>
-										</span>
-									{% else %}
-										<span class="plugin_picture align-left">
-											<img src="{{ news.get_news_picture_url }}" alt="{{ news.title}} " title="{{ news.title }}">
-										</span>
-									{% endif %}
-								{% endif %}
-								<span style="clear: both; text-align: center; display: block;">
-									<h3>
-										{%if news.page_link.get_absolute_url %}
-											<a style="color:#000000" href="{{ news.get_page_link }}">&nbsp;&nbsp;{{ news.title }}</a>
-										{% else %}
-											&nbsp;&nbsp;{{ news.title }}
-										{% endif %}
-									</h3>
-									{{ news.content }}
-										{%if news.page_link.get_absolute_url %}
-											<a href="{{ news.get_page_link }}"> Les mer...</a>
-										{% endif %}
-								</span>
-							</span>
-						</p>
-					</div>
-				</li>
+			    {% if news.show_in_carousel %}
+    				<li>
+    					<div>
+    						<p>
+    							<span style="float: left; display: inline-block;">
+    								{% if news.get_news_picture_url %}
+    									{%if news.page_link.get_absolute_url %}
+    										<span class="plugin_picture align-left">
+    											<a href="{{ news.get_page_link }}">
+    												<img src="{{ news.get_news_picture_url }}" alt="{{ news.title}} " title="{{ news.title }}">
+    											</a>
+    										</span>
+    									{% else %}
+    										<span class="plugin_picture align-left">
+    											<img src="{{ news.get_news_picture_url }}" alt="{{ news.title}} " title="{{ news.title }}">
+    										</span>
+    									{% endif %}
+    								{% endif %}
+    								<span style="clear: both; text-align: center; display: block;">
+    									<h3>
+    										{%if news.page_link.get_absolute_url %}
+    											<a style="color:#000000" href="{{ news.get_page_link }}">&nbsp;&nbsp;{{ news.title }}</a>
+    										{% else %}
+    											&nbsp;&nbsp;{{ news.title }}
+    										{% endif %}
+    									</h3>
+    									{{ news.content }}
+    										{%if news.page_link.get_absolute_url %}
+    											<a href="{{ news.get_page_link }}"> Les mer...</a>
+    										{% endif %}
+    								</span>
+    							</span>
+    						</p>
+    					</div>
+    				</li>
+    		    {% endif %}
 			  {% empty %}
 				<li><div><h3>&nbsp;&nbsp;{% trans "No news yet" %}</h3></div></li>
 			  {% endfor %}

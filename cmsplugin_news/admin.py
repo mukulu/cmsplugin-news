@@ -12,7 +12,7 @@ class NewsAdmin(admin.ModelAdmin):
         Admin for news
     """
     date_hierarchy = 'pub_date'
-    list_display = ('slug', 'title', 'is_published', 'news_picture', 'page_link', 'pub_date')
+    list_display = ('slug', 'title', 'is_published', 'show_in_carousel','show_in_newsarchive', 'news_picture', 'page_link', 'pub_date')
     #list_editable = ('title', 'is_published')
     list_filter = ('is_published', )
     search_fields = ['title', 'excerpt', 'content']

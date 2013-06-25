@@ -22,8 +22,8 @@ class PublishedNewsManager(models.Manager):
         return super(PublishedNewsManager, self).get_query_set() \
                     .filter(is_published=True) \
                     .filter(pub_date__lte=datetime.datetime.now())
-
-
+    
+    
 class News(CMSPlugin):
     """
     News
@@ -39,6 +39,8 @@ class News(CMSPlugin):
 
     is_published = models.BooleanField(_('Published'), default=False)
     pub_date = models.DateTimeField(_('Publication date'), default=datetime.datetime.now)
+    show_in_carousel = models.BooleanField(_('Show in Carousel(LatestNews)'), default=False)
+    show_in_newsarchive = models.BooleanField(_('Show in News Archive(Aktuelt)'), default=True)
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, editable=False)
