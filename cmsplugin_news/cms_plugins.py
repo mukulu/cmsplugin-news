@@ -19,7 +19,7 @@ class CMSLatestNewsPlugin(CMSPluginBase):
         """
             Render the latest news
         """
-        latest = News.published.all()[:instance.limit]
+        latest = News.published.all().order_by('pub_date')[:instance.limit]
         context.update({
             'instance': instance,
             'latest': latest,

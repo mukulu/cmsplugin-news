@@ -35,7 +35,7 @@ class News(CMSPlugin):
     excerpt = models.TextField(_('Excerpt'), blank=True)
     content = models.TextField(_('Content'), blank=True)
     # content = ckeditor.fields.RichTextField(_('Content'), blank=True)
-    news_picture = models.ImageField(_("image"), upload_to=calculate_image_path, max_length=255, null=True, blank=True)
+    news_picture = models.ImageField(_("News preview image(smaller - 100x100px)"), upload_to=calculate_image_path, max_length=255, null=True, blank=True)
 
     is_published = models.BooleanField(_('Published'), default=False)
     pub_date = models.DateTimeField(_('Publication date'), default=datetime.datetime.now)
@@ -105,7 +105,7 @@ class LatestNewsPlugin(CMSPlugin):
         Model for the settings when using the latest news cms plugin
     """
     limit = models.PositiveIntegerField(_('Number of news items to show'),
-                    help_text=_('Limits the number of items that will be displayed'))
+                    help_text=_('Limits the number of items that will be displayed'),null=True,blank=True,default=4)
 
 
 class ArchiveNewsPlugin(CMSPlugin):
